@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 #include <algorithm>
 
 struct ListNode {
@@ -16,6 +17,29 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+
+// LeetCode: String to Integer
+int myAtoi(std::string s) {
+    int i = 0;
+    int buho = 1;
+    int result = 0;
+    if (s.length() == 0) return 0;
+    
+    while(i < s.length() && s[i] == ' ')
+        i++;
+    
+    if (i < s.length() && (s[i] == '+' || s[i] == '-'))
+        buho = (s[i++] == '-') ? -1 : 1;
+    
+    while (i < s.length() && s[i] >= '0' && s[i] <= '9') {
+        if (result > INT_MAX / 10 ||
+            (result == INT_MAX / 10 && s[i] - '0' > INT_MAX % 10)) {
+            return (buho == 1) ? INT_MAX : INT_MIN;
+        }
+        result = result * 10 + (s[i++] - '0');
+    }
+    return result * buho;
+}
 
 // LeetCode : Reverse Integer
 int reverse(int x) {
@@ -39,6 +63,7 @@ int reverse(int x) {
 
 int main(int argc, const char * argv[]) {
     std::cout << reverse(321) << std::endl;
+    std::cout << myAtoi("1234 is my String") << std::endl;
     return 0;
 }
 
