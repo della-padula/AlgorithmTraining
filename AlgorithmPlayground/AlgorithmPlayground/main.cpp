@@ -18,6 +18,28 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+// LeetCode: Integer to Roman
+std::string intToRoman(int num) {
+    int dividers[13] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    std::string roman[13] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    int subNum = num;
+    int index = 0;
+    std::string result = "";
+    
+    while(subNum != 0) {
+        int mok = subNum / dividers[index];
+        if(mok > 0) {
+            for(int i = 0; i < mok; ++i) {
+                result.append(roman[index]);
+            }
+        }
+        subNum -= mok * dividers[index];
+        index += 1;
+    }
+    
+    return result;
+}
+
 // LeetCode: String to Integer
 int myAtoi(std::string s) {
     int i = 0;
@@ -62,8 +84,13 @@ int reverse(int x) {
 }
 
 int main(int argc, const char * argv[]) {
-    std::cout << reverse(321) << std::endl;
-    std::cout << myAtoi("1234 is my String") << std::endl;
+//    std::cout << reverse(321) << std::endl;
+//    std::cout << myAtoi("1234 is my String") << std::endl;
+    std::cout << intToRoman(3) << std::endl;
+    std::cout << intToRoman(4) << std::endl;
+    std::cout << intToRoman(9) << std::endl;
+    std::cout << intToRoman(58) << std::endl;
+    std::cout << intToRoman(1994) << std::endl;
     return 0;
 }
 
