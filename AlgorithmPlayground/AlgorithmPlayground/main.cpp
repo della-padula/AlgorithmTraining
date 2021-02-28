@@ -17,11 +17,32 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+// LeetCode : Reverse Integer
+int reverse(int x) {
+    int result = 0;
+    while (x != 0) {
+        int pop = x % 10;
+        x /= 10;
+        
+        if (result > INT_MAX/10 || (result == INT_MAX / 10 && pop > 7)) {
+            return 0;
+        }
+        
+        if (result < INT_MIN/10 || (result == INT_MIN / 10 && pop < -8)) {
+            return 0;
+        }
+        
+        result = result * 10 + pop;
+    }
+    return result;
+}
+
 int main(int argc, const char * argv[]) {
-    
+    std::cout << reverse(321) << std::endl;
     return 0;
 }
 
+// LeetCode : Add Two Numbers
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
     int sum = 0;
     ListNode *l3 = NULL;
